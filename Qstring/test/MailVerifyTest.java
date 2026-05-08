@@ -1,38 +1,38 @@
 package maratonajava.javacore.Qstring.test;
 
-import maratonajava.javacore.Qstring.dominio.EmailIncorreto;
-import maratonajava.javacore.Qstring.dominio.SenhaIncorreta;
+import maratonajava.javacore.Qstring.dominio.IncorrectEmail;
+import maratonajava.javacore.Qstring.dominio.IncorrectPassword;
 
 import java.util.Scanner;
 
 public class MailVerifyTest {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Cria teu E-mail: ");
-        String eMail = scanner.nextLine();
-        System.out.print("Cria tua senha: ");
-        String senha = scanner.nextLine();
 
-        System.out.print("Loga teu email: ");
-        String tent = scanner.nextLine();
-        System.out.print("Loga tua senha: ");
-        String tentS = scanner.nextLine();
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.print("Sign in Email: ");
+            String eMail = scanner.nextLine();
+            System.out.print("Sign in Password: ");
+            String password = scanner.nextLine();
+            System.out.print("Login Email: ");
+            String loginEmail = scanner.nextLine();
+            System.out.print("Login Password: ");
+            String loginPassword = scanner.nextLine();
 
-        try {
-            verify(eMail.trim(), tent.trim(), senha, tentS);
-        } catch (EmailIncorreto | SenhaIncorreta e) {
+            verify(eMail.trim(), loginEmail.trim(), password, loginPassword);
+
+        } catch (IncorrectEmail | IncorrectPassword e) {
             e.printStackTrace();
         }
     }
 
 
-    public static void verify(String mail, String tent, String senha, String tentS) {
-        if (!tent.equals(mail)) {
-            throw new EmailIncorreto("Email Incorreto!");
+    public static void verify(String mail, String loginEmail, String password, String loginPassword) {
+        if (!loginEmail.equals(mail)) {
+            throw new IncorrectEmail("Incorrect Email!");
         }
-        if (!tentS.equals(senha)) {
-            throw new SenhaIncorreta("Senha incopativel com banco de dados!");
+        if (!loginPassword.equals(password)) {
+            throw new IncorrectPassword("Incorrect Password!");
         }
-        System.out.println("Login com sucesso!");
+        System.out.println("Successful Login!");
     }
 }
